@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soot's Guide to Selling</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 1. SOOT'S BRAIN (Loaded First) -->
+    <script>
+        // Define data immediately so it's ready before the chart draws
+        const guideData = {
+            "Form1": {
+                title: "✨ The 'Don't Be Boring' Rule",
+                content: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><b>Title Game:</b> "Old Chair" is a bad title. "Vintage 1970s Oak Dining Chair" is a sold title. Be specific.</li>
+                        <li><b>Price Psychology:</b> People love <b>.99</b>. $20.00 looks expensive. $19.99 looks like a deal. I don't make the rules, I just exploit them.</li>
+                        <li><b>Description:</b>
+                            <ul class="list-circle pl-5 mt-1 text-sm text-gray-600">
+                                <li>Measure it. Don't make them guess the size.</li>
+                                <li>Material? (Wood, metal, mystery plastic?)</li>
+                                <li><b>Be Honest:</b> If it's scratched, say it. Surprising people with damage is a great way to get a 1-star review.</li>
+                            </ul>
+                        </li>
+                    </ul>`
+            },
+            "Photo": {
+                title: "📸 No Ugly Photos Allowed",
+                content: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><b>Lighting:</b> Turn off the flash. Open a window. Flash makes everything look like a crime scene. Natural light makes it look expensive.</li>
+                        <li><b>The 'Hero' Shot:</b> The first photo must show the WHOLE item.</li>
+                        <li><b>Clean the Lens:</b> Wipe your phone camera. Blurry photos = "I don't care about this item."</li>
+                        <li><b>No Feet:</b> Please check if your feet are in the reflection. Nobody wants to buy your feet.</li>
+                    </ul>`
+            },
+            "Ship": {
+                title: "📦 Shipping: The Danger Zone",
+                content: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><b>The Golden Rule:</b> Weigh the BOX + BUBBLE WRAP, not just the item. Cardboard is heavy.</li>
+                        <li><b>Round Up:</b> If it's 1.8 lbs, enter <b>2 lbs</b>. If you guess low, you pay the difference out of your own pocket. Don't work for free.</li>
+                        <li><b>Fragile?</b> Assume the delivery driver is going to throw it. Pack accordingly.</li>
+                    </ul>`
+            },
+            "Cat": {
+                title: "📂 The Void of 'No Category'",
+                content: `
+                    <p class="text-gray-700 mb-2">If you don't pick a category, the item goes to the 'Miscellaneous' void where items go to die.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><b>Be Clickable:</b> Put it where people look. Is it a lamp? Put it in Lighting.</li>
+                        <li><b>Double Dip:</b> Can you check "Vintage" AND "Home Decor"? Do it. Be seen twice.</li>
+                    </ul>`
+            },
+            "Publish": {
+                title: "🚀 The Big Blue Button",
+                content: `
+                    <p class="text-gray-700 font-bold">Listen to me carefully.</p>
+                    <p class="text-gray-700 mt-2">Hitting "Save" just saves it for <i>you</i>. It does NOT put it on the internet.</p>
+                    <p class="text-gray-700 mt-2">You must click <b>PUBLISH</b> in the top right corner. If you don't, you didn't sell anything.</p>`
+            }
+        };
+
+        // Make the function strictly global
+        window.showNodeDetail = function(nodeId) {
+            console.log("Clicked:", nodeId); // Debug check
+            const data = guideData[nodeId];
+            if (data) {
+                document.getElementById('modalTitle').innerText = data.title;
+                document.getElementById('modalContent').innerHTML = data.content;
+                document.getElementById('infoModal').classList.remove('hidden');
+            } else {
+                console.log("No data found for:", nodeId);
+            }
+        };
+
+        window.closeModal = function() {
+            document.getElementById('infoModal').classList.add('hidden');
+        };
+    </script>
+
+    <!-- 2. MERMAID (Loaded Second) -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Configuration to fix layout errors
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            securityLevel: 'loose',
+            logLevel: 'error',
+            flowchart: { 
+                useMaxWidth: true, 
+                htmlLabels: true,
+                curve: 'basis', // Smoother curves help routing
+                rankSpacing: 80, // INCREASED spacing to give labels room
+                nodeSpacing: 50
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .mermaid-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            position: relative;
+        }
+        
+        .soot-watermark {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+            width: 300px;
+            height: auto;
+            transform: rotate(-10deg);
+        }
+
+        .modal-bg {
+            background-color: rgba(31, 41, 55, 0.7);
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Force pointer cursor on clickable nodes */
+        g.node {
+            cursor: pointer !important;
+        }
+        
+        .soot-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            background-color: #374151;
+            color: white;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background-color: white; padding: 0; background-image: none; }
+            .mermaid-container { box-shadow: none; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto relative">
+        <!-- Header -->
+        <header class="mb-8 text-center relative">
+            <div class="mb-4">
+                <span class="soot-badge">
+                    <svg class="w-4 h-4 mr-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    SOOT CERTIFIED GUIDE
+                </span>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 mb-2 tracking-tight">How to Sell Stuff</h1>
+            <p class="text-gray-500 italic mb-4 text-lg">"A guide for Finally Sold It (and for sanity)"</p>
+            
+            <p class="text-sm text-indigo-600 font-bold animate-pulse no-print bg-indigo-50 inline-block px-4 py-2 rounded-full border border-indigo-100">
+                ✨ CLICK the boxes below for the real secrets ✨
+            </p>
+        </header>
+
+        <!-- Main Flowchart -->
+        <div class="mermaid-container p-6 mb-8 bg-white">
+            
+            <img src="soot.png" onerror="this.style.display='none'" class="soot-watermark" alt="Soot Watermark">
+            <div class="absolute bottom-4 right-4 text-6xl font-black text-gray-100 opacity-50 pointer-events-none select-none -rotate-12 z-0">
+                SOOT
+            </div>
+
+            <div class="mermaid text-center relative z-10">
+                %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e0e7ff', 'edgeLabelBackground':'#fff', 'tertiaryColor': '#fff', 'lineColor': '#4b5563'}}}%%
+                flowchart TD
+                    Start(["Start: Log in to Weebly"]) --> Nav1["Left Menu: Click 'Items'"]
+                    Nav1 --> Nav2["Sub-Menu: Click 'Site Items'"]
+                    Nav2 --> Nav3["Top Right: Click 'Create New Item'"]
+                    
+                    Nav3 --> Form1["<b>The Basics ℹ️</b><br/>Make the Title & Price look good"]
+                    Form1 --> Photo["<b>Upload Photos ℹ️</b><br/>Don't use blurry pics!"]
+                    
+                    Photo --> Choice{"Shipping<br/>or Pickup?"}
+                    
+                    Choice -- Shipping --> Ship["Select 'Shipping' ℹ️<br/><i>Don't guess the weight!</i>"]
+                    Choice -- Pickup --> Pick["Select 'Pickup'"]
+                    
+                    Ship --> Cat["<b>Category Selection ℹ️</b><br/>Scroll down and click<br/>'+ Choose Categories'"]
+                    Pick --> Cat
+                    
+                    Cat --> Check{"Did you pick<br/>a Category?"}
+                    
+                    Check -- No --> Stop["STOP!<br/>It's invisible.<br/>Go pick one."]
+                    Check -- Yes --> Save["Top Right: Click <b>SAVE</b>"]
+                    
+                    Save --> Publish(("<b>FINAL STEP ℹ️</b><br/>Click PUBLISH on Dashboard"))
+                    
+                    style Start fill:#fcd34d,stroke:#f59e0b,stroke-width:2px
+                    style Stop fill:#fca5a5,stroke:#b91c1c,stroke-width:2px
+                    style Save fill:#86efac,stroke:#16a34a,stroke-width:2px
+                    style Publish fill:#10b981,stroke:#064e3b,stroke-width:4px,color:white
+                    style Choice fill:#f3f4f6,stroke:#9ca3af,stroke-width:2px
+                    style Check fill:#f3f4f6,stroke:#9ca3af,stroke-width:2px
+                    style Form1 fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px
+                    style Photo fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px
+                    style Ship fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px
+                    style Cat fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px
+
+                    click Form1 call showNodeDetail()
+                    click Photo call showNodeDetail()
+                    click Ship call showNodeDetail()
+                    click Cat call showNodeDetail()
+                    click Publish call showNodeDetail()
+            </div>
+        </div>
+
+        <!-- MODAL POPUP -->
+        <div id="infoModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 modal-bg transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border-t-4 border-gray-800">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gray-200 sm:mx-0 sm:h-10 sm:w-10">
+                                <span class="text-xl">🧐</span>
+                            </div>
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                <h3 class="text-lg leading-6 font-bold text-gray-900" id="modalTitle">Tip Title</h3>
+                                <div class="mt-2 text-sm text-gray-600" id="modalContent">
+                                    Tip content goes here...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="button" onclick="closeModal()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-800 text-base font-medium text-white hover:bg-black focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                            Got it.
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center text-sm text-gray-400 pb-8">
+            <p>Generated by <b>Soot</b></p>
+            <p class="text-xs mt-1 italic">"If you break the website, I didn't do it."</p>
+        </div>
+    </div>
+</body>
+</html>
